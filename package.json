@@ -3,7 +3,6 @@
 	"version": "0.0.10",
 	"description": "Usher Satellite JS Library used for Conversion Tracking",
 	"author": "Ryan Soury <ryan@usher.so>",
-	"repository": "git@github.com:rsoury/usher-js.git",
 	"homepage": "https://usher.so/",
 	"license": "MIT",
 	"private": false,
@@ -13,6 +12,10 @@
 	"files": [
 		"/lib"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rsoury/usher-js.git"
+	},
 	"scripts": {
 		"start": "cross-env NODE_ENV=development rollup -c",
 		"dev": "cross-env NODE_ENV=development rollup -c -w",
