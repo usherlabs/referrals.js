@@ -1,5 +1,5 @@
 import path from "path";
-import babel from "@rollup/plugin-babel";
+// import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
@@ -8,16 +8,19 @@ import { uglify } from "rollup-plugin-uglify";
 import filesize from "rollup-plugin-filesize";
 import visualizer from "rollup-plugin-visualizer";
 import injectProcessEnv from "rollup-plugin-inject-process-env";
-import sourcemaps from "rollup-plugin-sourcemaps";
+// import sourcemaps from "rollup-plugin-sourcemaps";
 import alias from "@rollup/plugin-alias";
 import dotenv from "@gedhean/rollup-plugin-dotenv";
+import esbuild from "rollup-plugin-esbuild";
+import json from "@rollup/plugin-json";
+import nodePolyfills from "rollup-plugin-polyfill-node";
 
 import pkg from "./package.json";
 
 const isProd = process.env.NODE_ENV === "production";
 
-const input = "src/index.js";
-const extensions = [".js", ".json"];
+const input = "src/index.ts";
+const extensions = [".ts", ".js", ".json"];
 const codes = [
 	"THIS_IS_UNDEFINED",
 	"MISSING_GLOBAL_NAME",
@@ -33,22 +36,20 @@ const discardWarning = (warning) => {
 };
 
 const plugins = [
-	commonjs(),
-	babel({
-		presets: ["@babel/preset-env"],
-		plugins: [
-			[
-				"@babel/plugin-transform-runtime",
-				{
-					regenerator: true
-				}
-			]
-		],
-		babelHelpers: "runtime",
-		exclude: "node_modules/**",
-		extensions,
-		babelrc: false
+	esbuild({
+		include: /\.ts?$/,
+		exclude: /node_modules/,
+		sourceMap: !isProd,
+		minify: isProd,
+		tsconfig: "./tsconfig.json",
+		loaders: {
+			// Add .json files support
+			".json": "json"
+		}
 	}),
+	commonjs(),
+	json(),
+	nodePolyfills({ include: ["crypto"] }),
 	alias({
 		entries: [{ find: "@", replacement: path.resolve(__dirname, "./src") }]
 	}),
@@ -65,9 +66,9 @@ const plugins = [
 		NODE_ENV: process.env.NODE_ENV || "development"
 	})
 ];
-if (!isProd) {
-	plugins.push(sourcemaps());
-}
+// if (!isProd) {
+// 	plugins.push(sourcemaps());
+// }
 
 export default [
 	// CommonJS

@@ -11,7 +11,7 @@ class Satellite {
 	static load() {
 		// Render a new Satellite
 		if (!satelliteUrl) {
-			return;
+			return Promise.reject();
 		}
 		const satEl = document.createElement("iframe");
 		satEl.setAttribute("id", "usher-satellite");

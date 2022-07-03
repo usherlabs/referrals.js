@@ -12,8 +12,7 @@
         "endOfLine": "auto"
       }
     ],
-		"no-unused-vars": ["error", { "ignoreRestSiblings": true }],
-		"no-underscore-dangle": "off"
+		"no-unused-vars": ["error", { "ignoreRestSiblings": true }]
   },
   "overrides": [
     // Configuration for TypeScript files
@@ -25,26 +24,23 @@
         "unused-imports"
       ],
       "extends": [
-        "airbnb-typescript",
+        "airbnb-typescript/base",
         "plugin:prettier/recommended"
       ],
       "parserOptions": {
-        "project": [
-					"./tsconfig.json"
-				]
+        "project": "./tsconfig.json"
       },
 			"settings": {
-				"import/parsers": {
-					"@typescript-eslint/parser": [".ts", ".tsx"]
-				},
 				"import/resolver": {
 					"typescript": {
 						"alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-						"project": "./tsconfig.*json"
+						"project": "./tsconfig.json"
 					}
 				}
 			},
       "rules": {
+				"no-console": "off",
+				"no-underscore-dangle": "off",
         "prettier/prettier": [
           "error",
           {
@@ -64,12 +60,6 @@
 				"no-param-reassign": "off",
 				"class-methods-use-this": "off"
       }
-    },
-		{
-			"files": ["**/*.spec.ts", "**/*.test.ts"],
-			"rules": {
-				"@typescript-eslint/no-unused-expressions": "off"
-			}
-		}
+    }
   ]
 }

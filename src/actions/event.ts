@@ -7,7 +7,6 @@
  */
 
 import ky from "ky";
-import { randomString } from "@stablelib/random";
 import cuid from "cuid";
 import { Sha256 } from "@aws-crypto/sha256-js";
 import { fromString } from "uint8arrays";
@@ -16,6 +15,7 @@ import { getResolver as getKeyResolver } from "key-did-resolver";
 import { Ed25519Provider } from "key-did-provider-ed25519";
 import { Base64 } from "js-base64";
 
+import { randomString } from "@/utils/random";
 import { apiUrl } from "@/env-config";
 import bus from "@/utils/bus";
 import Satellite from "@/utils/satellite";
