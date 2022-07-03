@@ -7,4 +7,10 @@ export type Conversion = {
 	commit?: number;
 };
 
+export type ConversionResponse = {
+	did: string;
+	response: Record<string, string | number | boolean>;
+	conversion: Conversion;
+};
+
 export type EventParams = Conversion;

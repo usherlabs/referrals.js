@@ -1,7 +1,7 @@
 import bus from "@/utils/bus";
-import { Conversion } from "@/types";
+import { ConversionResponse } from "@/types";
 
-let onConversionCallback: (conversion: Conversion) => void;
+let onConversionCallback: (response: ConversionResponse) => void;
 let isListening = false;
 
 const action = async (callback: typeof onConversionCallback) => {
@@ -10,9 +10,9 @@ const action = async (callback: typeof onConversionCallback) => {
 	if (!isListening) {
 		isListening = true;
 		bus.on("conversion", (busParams) => {
-			const conversion = busParams as Conversion;
+			const response = busParams as ConversionResponse;
 			if (onConversionCallback) {
-				onConversionCallback(conversion);
+				onConversionCallback(response);
 			}
 		});
 	}
