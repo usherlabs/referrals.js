@@ -4,12 +4,15 @@ import Bus from "@/utils/bus";
 const elementId = "usher-satellite";
 
 class Satellite {
-	static get isLoaded() {
+	public static isLoaded() {
 		return !!document.getElementById(elementId);
 	}
 
-	static async load() {
+	static load() {
 		// Render a new Satellite
+		if (!satelliteUrl) {
+			return;
+		}
 		const satEl = document.createElement("iframe");
 		satEl.setAttribute("id", "usher-satellite");
 		satEl.setAttribute("src", satelliteUrl);
@@ -18,9 +21,9 @@ class Satellite {
 			`position:absolute !important;left:-9999px !important;top:-9999px !important;pointer-events:none !important;opacity:0 !important;visibility:hidden !important;display:none !important;height:0 !important;width:0 !important;`
 		);
 		document.body.append(satEl);
-		await new Promise((resolve) => {
+		return new Promise((resolve) => {
 			Bus.on("loaded", () => {
-				resolve();
+				resolve(null);
 			});
 		});
 	}
@@ -28,7 +31,11 @@ class Satellite {
 	static remove() {
 		// Remove any existing Satellite
 		const existingSatEl = document.getElementById("usher-satellite");
-		if (existingSatEl) {
+		if (
+			existingSatEl &&
+			existingSatEl !== null &&
+			existingSatEl?.parentNode !== null
+		) {
 			existingSatEl.parentNode.removeChild(existingSatEl);
 		}
 	}
