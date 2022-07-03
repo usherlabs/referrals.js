@@ -68,15 +68,15 @@ Loading directly into Browser:
 
 Use this event name with `window.Usher` to trigger a conversion.
 
-`**params:** Conversion` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversion)
+**params:** `Conversion` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversion)
 
 ### `onLoad`
 
-`**params:** () => void`
+**params:** `() => void`
 
 ### `onConversion`
 
-`**params:** ConversionCallback` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversioncallback)
+**params:** `ConversionCallback` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversioncallback)
 
 Register a callback to fire after a conversion has been successfully tracked.
 
