@@ -15,6 +15,9 @@ class Satellite {
 		if (!satelliteUrl) {
 			return Promise.reject();
 		}
+		if (this.isLoaded()) {
+			return Promise.resolve();
+		}
 		const satEl = document.createElement("iframe");
 		satEl.setAttribute("id", "usher-satellite");
 		satEl.setAttribute("src", satelliteUrl);

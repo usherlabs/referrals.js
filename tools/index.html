@@ -6,12 +6,25 @@
     <title>Rollup Bundle</title>
   </head>
   <body>
+		<h1>Hello Satellite?</h1>
+		<div id="response"></div>
     <script src="/build/index.js"></script>
 		<script>
-			window.Usher('event', {
-				id: "local_dev_placeholder",
+			var responseEl = document.querySelector('#response');
+			window.Usher('onLoad', () => {
+				responseEl.innerHTML += "<p>Yes, I'm here...</p>";
+			})
+			window.Usher('onConversion', (conversion) => {
+				console.log(conversion)
+				responseEl.innerHTML += "<p>I've converted a user</p>";
+			})
+			window.Usher('convert', {
+				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
+				chain: "arweave",
+				eventId: 0,
+				commit: 10,
 				// nativeId: "world",
-				properties: {
+				metadata: {
 					hello: "world",
 					"key": "value"
 				}
