@@ -16,7 +16,7 @@ Using Import:
 ```javascript
 import { Usher } from '@usher.so/satellite'
 Usher('convert', {
-	id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
+	id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 	chain: "arweave",
 	eventId: 0,
 	commit: 10,
@@ -33,7 +33,7 @@ Loading directly into Browser:
 <script src="https://cdn.jsdelivr.net/npm/@usher.so/satellite"></script>
 <script>
 	window.Usher('convert', {
-		id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
+		id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 		chain: "arweave",
 		eventId: 1,
 		nativeId: "some_wallet_address",
