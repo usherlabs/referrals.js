@@ -49,6 +49,7 @@ Loading directly into Browser:
 ## Documentation
 
 - Integrate Usher Satellite: [https://docs.usher.so](https://docs.usher.so)
+- Usher Satellite Typescript Docs: [https://ts-docs.satellite.usher.so](https://ts-docs.satellite.usher.so)
 - View integration example: [See file](https://github.com/usherlabs/satellite/blob/master/tools/index.html)
 - Learn about Usher: [https://usher.so](https://usher.so)
 
@@ -65,8 +66,23 @@ Loading directly into Browser:
 
 ### `convert`
 
-`**params:** [Conversion]()`
+Use this event name with `window.Usher` to trigger a conversion.
+
+`**params:** Conversion` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversion)
 
 ### `onLoad`
 
 `**params:** () => void`
+
+### `onConversion`
+
+`**params:** ConversionCallback` -- [See Type](https://ts-docs.satellite.usher.so/types/types.conversioncallback)
+
+Register a callback to fire after a conversion has been successfully tracked.
+
+```javascript
+Usher('onConversion', (conversion) => {
+	console.log(conversion)
+	responseEl.innerHTML += "<p>I've converted a user</p>";
+})
+```
