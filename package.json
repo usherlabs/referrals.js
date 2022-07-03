@@ -30,17 +30,8 @@
 		"local": "symlink ./build ./tools/build && serve -d ./tools -p 3001"
 	},
 	"dependencies": {
-		"@aws-crypto/sha256-js": "^2.0.1",
-		"@stablelib/random": "^1.0.1",
-		"cuid": "^2.1.8",
-		"dids": "^3.2.0",
 		"eventemitter3": "^4.0.7",
-		"framebus": "^5.1.2",
-		"js-base64": "^3.7.2",
-		"key-did-provider-ed25519": "^2.0.0",
-		"key-did-resolver": "^2.0.4",
-		"ky": "^0.30.0",
-		"uint8arrays": "^3.0.0"
+		"framebus": "^5.1.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.7",

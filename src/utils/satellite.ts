@@ -4,11 +4,13 @@ import Bus from "@/utils/bus";
 const elementId = "usher-satellite";
 
 class Satellite {
+	protected static isLoadedFlag = false;
+
 	public static isLoaded() {
-		return !!document.getElementById(elementId);
+		return !!document.getElementById(elementId) && this.isLoadedFlag;
 	}
 
-	static load() {
+	public static load() {
 		// Render a new Satellite
 		if (!satelliteUrl) {
 			return Promise.reject();
@@ -23,12 +25,13 @@ class Satellite {
 		document.body.append(satEl);
 		return new Promise((resolve) => {
 			Bus.on("loaded", () => {
+				this.isLoadedFlag = true;
 				resolve(null);
 			});
 		});
 	}
 
-	static remove() {
+	public static remove() {
 		// Remove any existing Satellite
 		const existingSatEl = document.getElementById("usher-satellite");
 		if (
@@ -38,6 +41,7 @@ class Satellite {
 		) {
 			existingSatEl.parentNode.removeChild(existingSatEl);
 		}
+		this.isLoadedFlag = false;
 	}
 }
 
