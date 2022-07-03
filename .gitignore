@@ -15,6 +15,7 @@ webbuild
 web/build
 lib
 tools/lib
+docs
 
 # misc
 .DS_Store

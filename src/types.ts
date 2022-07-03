@@ -13,4 +13,6 @@ export type ConversionResponse = {
 	conversion: Conversion;
 };
 
-export type EventParams = Conversion;
+export type ConversionCallback = (response: ConversionResponse) => void;
+
+export type EventParams = Conversion | ConversionCallback | (() => void);

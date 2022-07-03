@@ -26,7 +26,8 @@
 		"lint": "eslint -c ./.eslintrc \"src/**/*.{js,ts}\"",
 		"ts": "tsc --noEmit",
 		"test": "echo \"No tests available\"",
-		"clean": "del ./build",
+		"docs": "typedoc ./src/index.ts ./src/actions/index.ts ./src/types.ts",
+		"clean": "del ./build ./docs",
 		"local": "symlink ./build ./tools/build && serve -d ./tools -p 3001"
 	},
 	"dependencies": {
@@ -73,6 +74,7 @@
 		"rollup-plugin-visualizer": "^5.6.0",
 		"symlink-cli": "^1.0.0",
 		"tsc": "^2.0.4",
+		"typedoc": "^0.23.5",
 		"typescript": "^4.7.4"
 	}
 }

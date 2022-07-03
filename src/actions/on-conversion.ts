@@ -1,7 +1,7 @@
 import bus from "@/utils/bus";
-import { ConversionResponse } from "@/types";
+import { ConversionResponse, ConversionCallback } from "@/types";
 
-let onConversionCallback: (response: ConversionResponse) => void;
+let onConversionCallback: ConversionCallback;
 let isListening = false;
 
 const action = async (callback: typeof onConversionCallback) => {
