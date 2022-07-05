@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"display": "Satellite",
+	"display": "UsherJS",
 	"compilerOptions": {
 		"baseUrl": ".",
 		"preserveConstEnums": true,

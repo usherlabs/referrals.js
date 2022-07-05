@@ -1,7 +1,7 @@
 {
-	"name": "@usher.so/satellite",
+	"name": "@usher.so/js",
 	"version": "0.1.0",
-	"description": "Usher Satellite Library used for integrating Conversion Tracking",
+	"description": "UsherJS Library used for integrating Conversion Tracking",
 	"author": "Ryan Soury <ryan@usher.so>",
 	"homepage": "https://usher.so/",
 	"license": "MIT",
@@ -15,7 +15,7 @@
 	"types": "index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/usherlabs/satellite.git"
+		"url": "https://github.com/usherlabs/usher.js.git"
 	},
 	"publishConfig": {
 		"access": "public",
