@@ -1,4 +1,4 @@
-import { satelliteUrl } from "@/env-config";
+import { satelliteUrl, stagingSatelliteUrl } from "@/env-config";
 import Bus from "@/utils/bus";
 
 const elementId = "usher-satellite";
@@ -6,13 +6,23 @@ const elementId = "usher-satellite";
 class Satellite {
 	protected static isLoadedFlag = false;
 
+	protected static url = satelliteUrl;
+
+	public static useStaging() {
+		this.url = stagingSatelliteUrl;
+	}
+
+	public static useProd() {
+		this.url = satelliteUrl;
+	}
+
 	public static isLoaded() {
 		return !!document.getElementById(elementId) && this.isLoadedFlag;
 	}
 
 	public static load() {
 		// Render a new Satellite
-		if (!satelliteUrl) {
+		if (!this.url) {
 			return Promise.reject();
 		}
 		if (this.isLoaded()) {
@@ -20,7 +30,7 @@ class Satellite {
 		}
 		const satEl = document.createElement("iframe");
 		satEl.setAttribute("id", "usher-satellite");
-		satEl.setAttribute("src", satelliteUrl);
+		satEl.setAttribute("src", this.url);
 		satEl.setAttribute(
 			"style",
 			`position:absolute !important;left:-9999px !important;top:-9999px !important;pointer-events:none !important;opacity:0 !important;visibility:hidden !important;display:none !important;height:0 !important;width:0 !important;`

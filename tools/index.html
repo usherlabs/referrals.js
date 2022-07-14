@@ -1,24 +1,24 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Rollup Bundle</title>
-  </head>
-  <body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Rollup Bundle</title>
+	</head>
+	<body>
 		<h1>Hello Satellite?</h1>
 		<div id="response"></div>
-    <script src="/build/index.js"></script>
+		<script src="/build/index.js"></script>
 		<script>
-			var responseEl = document.querySelector('#response');
-			window.Usher('onLoad', () => {
+			var responseEl = document.querySelector("#response");
+			window.Usher("onLoad", () => {
 				responseEl.innerHTML += "<p>Yes, I'm here...</p>";
-			})
-			window.Usher('onConversion', (conversion) => {
-				console.log(conversion)
+			});
+			window.Usher("onConversion", (conversion) => {
+				console.log(conversion);
 				responseEl.innerHTML += "<p>I've converted a user</p>";
-			})
-			window.Usher('convert', {
+			});
+			// window.Usher("config", { staging: true });
+			window.Usher("convert", {
 				// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
 				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 				chain: "arweave",
@@ -27,9 +27,23 @@
 				// nativeId: "world",
 				metadata: {
 					hello: "world",
-					"key": "value"
+					key: "value"
 				}
 			});
+			setTimeout(() => {
+				window.Usher("convert", {
+					// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
+					id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
+					chain: "arweave",
+					eventId: 0,
+					commit: 20,
+					// nativeId: "world",
+					metadata: {
+						hello: "world",
+						key: "value"
+					}
+				});
+			}, 5000);
 		</script>
-  </body>
+	</body>
 </html>

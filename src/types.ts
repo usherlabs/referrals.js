@@ -1,3 +1,7 @@
+export type Config = {
+	staging?: boolean;
+};
+
 export type Conversion = {
 	id: string;
 	chain: string;
