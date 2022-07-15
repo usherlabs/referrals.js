@@ -28,6 +28,7 @@ class Satellite {
 		if (this.isLoaded()) {
 			return Promise.resolve();
 		}
+		this.isLoadedFlag = true;
 		const satEl = document.createElement("iframe");
 		satEl.setAttribute("id", "usher-satellite");
 		satEl.setAttribute("src", this.url);
@@ -38,7 +39,6 @@ class Satellite {
 		document.body.append(satEl);
 		return new Promise((resolve) => {
 			Bus.on("loaded", () => {
-				this.isLoadedFlag = true;
 				resolve(null);
 			});
 		});
