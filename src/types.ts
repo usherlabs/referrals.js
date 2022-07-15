@@ -1,5 +1,11 @@
+export enum CampaignConflictStrategy {
+	OVERWRITE = "overwrite",
+	PASSTHROUGH = "passthrough"
+}
+
 export type Config = {
 	staging?: boolean;
+	conflictStrategy?: CampaignConflictStrategy;
 };
 
 export type Conversion = {
@@ -19,4 +25,4 @@ export type ConversionResponse = {
 
 export type ConversionCallback = (response: ConversionResponse) => void;
 
-export type EventParams = Conversion | ConversionCallback | (() => void);
+export type EventParams = Conversion | ConversionCallback | (() => void) | null;

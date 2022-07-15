@@ -2,10 +2,10 @@
 
 export const isProd = process.env.NODE_ENV === "production";
 
-export const satelliteUrl = process.env.SATELLITE_URL;
-export const stagingSatelliteUrl = process.env.STAGING_SATELLITE_URL;
+export const apiUrl = process.env.API_URL;
+export const stagingApiUrl = process.env.STAGING_API_URL;
 
-if (!satelliteUrl) {
-	console.log(`[USHER] ERROR: No Satellite Url loaded!`);
+if (!apiUrl) {
+	console.log(`[USHER] ERROR: No API Url loaded!`);
 	throw new Error("Required environment variables not found");
 }

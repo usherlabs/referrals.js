@@ -1,25 +1,41 @@
 // Entrance
 
-import events from "@/utils/events";
-import { EventParams } from "@/types";
-import * as actions from "./actions";
+import { convert } from "./convert";
+import { anchor } from "./anchor";
+import Token from "./token";
+import Configure from "./configure";
+import { Config } from "./types";
+
+export const Usher = (config?: Config) => {
+	if (config) {
+		Configure.use(config);
+	}
+
+	return {
+		config(c: Config) {
+			Configure.use(c);
+		},
+		convert,
+		parse() {
+			return Token.parse();
+		},
+		token() {
+			return Token.get();
+		},
+		anchor,
+		flush() {
+			lscache.flush();
+		}
+	};
+};
 
 declare global {
 	interface Window {
-		Usher: (eventName: string, eventParams: EventParams) => void;
+		Usher: typeof Usher;
 	}
 }
 
-Object.entries(actions).forEach(([actionName, actionFn]) => {
-	events.on(actionName, actionFn);
-});
-
-const triggerEvent = (eventName: string, eventParams: EventParams) => {
-	events.emit(eventName, eventParams);
-};
-
 if (typeof window !== "undefined") {
-	window.Usher = triggerEvent;
+	window.Usher = Usher;
+	window.Usher().parse(); // parse query params
 }
-
-export const Usher = triggerEvent;
