@@ -4,7 +4,7 @@ import { convert } from "./convert";
 import { anchor } from "./anchor";
 import Token from "./token";
 import Configure from "./configure";
-import { Config } from "./types";
+import { Config, CampaignReference } from "./types";
 
 export const Usher = (config?: Config) => {
 	if (config) {
@@ -19,8 +19,8 @@ export const Usher = (config?: Config) => {
 		parse() {
 			return Token.parse();
 		},
-		token() {
-			return Token.get();
+		token(ref: CampaignReference) {
+			return Token.next(ref);
 		},
 		anchor,
 		flush() {

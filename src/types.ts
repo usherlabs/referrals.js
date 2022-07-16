@@ -8,9 +8,12 @@ export type Config = {
 	ConflictStrategy?: ConflictStrategy;
 };
 
-export type Conversion = {
-	id: string;
+export type CampaignReference = {
 	chain: string;
+	id: string;
+};
+
+export type Conversion = CampaignReference & {
 	eventId: number;
 	nativeId?: string;
 	metadata?: Record<string, string | number | boolean>;
