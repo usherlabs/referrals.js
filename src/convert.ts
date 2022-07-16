@@ -35,7 +35,9 @@ export const convert = async (conversion: Conversion) => {
 	try {
 		let visitorId = "";
 		if (typeof window !== "undefined") {
-			const fp = await FingerprintJS.load();
+			const fp = await FingerprintJS.load({
+				monitoring: false
+			});
 			const fpRes = await fp.get();
 			visitorId = fpRes.visitorId;
 		}
