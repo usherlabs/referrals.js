@@ -54,7 +54,7 @@ export const convert = async (conversion: Conversion) => {
 		const authToken = Base64.encode(JSON.stringify(raw));
 
 		const request = ky.create({
-			prefix: `${Configure.getApiUrl()}/api`,
+			prefixUrl: `${Configure.getApiUrl()}/api`,
 			headers: {
 				Authorization: `Bearer ${authToken}`
 			}
