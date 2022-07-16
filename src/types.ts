@@ -1,11 +1,11 @@
-export enum CampaignConflictStrategy {
+export enum ConflictStrategy {
 	OVERWRITE = "overwrite",
 	PASSTHROUGH = "passthrough"
 }
 
 export type Config = {
 	staging?: boolean;
-	conflictStrategy?: CampaignConflictStrategy;
+	ConflictStrategy?: ConflictStrategy;
 };
 
 export type Conversion = {

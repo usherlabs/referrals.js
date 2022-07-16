@@ -1,17 +1,17 @@
 import { apiUrl, stagingApiUrl } from "@/env-config";
-import { Config, CampaignConflictStrategy } from "@/types";
+import { Config, ConflictStrategy } from "@/types";
 
 class Configure {
 	private static _apiUrl = apiUrl;
 
-	private static _conflictStrategy = CampaignConflictStrategy.PASSTHROUGH;
+	private static _ConflictStrategy = ConflictStrategy.PASSTHROUGH;
 
 	public static getApiUrl() {
 		return this._apiUrl;
 	}
 
 	public static getConflictStrategy() {
-		return this._conflictStrategy;
+		return this._ConflictStrategy;
 	}
 
 	public static use(config: Config) {
@@ -22,14 +22,14 @@ class Configure {
 				this._apiUrl = apiUrl;
 			}
 		}
-		if (typeof config.conflictStrategy === "string") {
-			const strats = Object.values(CampaignConflictStrategy);
-			if (!strats.includes(config.conflictStrategy)) {
+		if (typeof config.ConflictStrategy === "string") {
+			const strats = Object.values(ConflictStrategy);
+			if (!strats.includes(config.ConflictStrategy)) {
 				throw new Error(
 					`Conflict Strategy must be one of type: ${strats.join(", ")}`
 				);
 			}
-			this._conflictStrategy = config.conflictStrategy;
+			this._ConflictStrategy = config.ConflictStrategy;
 		}
 	}
 }
