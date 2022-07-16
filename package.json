@@ -35,6 +35,7 @@
 		"local": "symlink ./build ./tools/build && serve -d ./tools -p 3001"
 	},
 	"dependencies": {
+		"cuid": "^2.1.8",
 		"js-base64": "^3.7.2",
 		"lscache": "^1.3.2"
 	},
