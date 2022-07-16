@@ -40,6 +40,7 @@ export const convert = async (conversion: Conversion) => {
 			});
 			const fpRes = await fp.get();
 			visitorId = fpRes.visitorId;
+			console.log(`[USHER] Visitor Data`, fpRes);
 		}
 
 		const request = ky.create({
