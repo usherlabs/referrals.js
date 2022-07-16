@@ -11,7 +11,9 @@ import alias from "@rollup/plugin-alias";
 import dotenv from "@gedhean/rollup-plugin-dotenv";
 import json from "@rollup/plugin-json";
 import nodePolyfills from "rollup-plugin-polyfill-node";
-import ts from "rollup-plugin-ts";
+// import ts from "rollup-plugin-ts";
+import esbuild from "rollup-plugin-esbuild";
+import typescript from "rollup-plugin-typescript2";
 
 import pkg from "./package.json";
 
@@ -35,45 +37,41 @@ const discardWarning = (warning) => {
 	console.error(warning);
 };
 
-const plugins = (format = "cjs") => {
-	const p = [
-		ts({
-			browserslist: ["> 0%"],
-			tsconfig: "tsconfig.json",
-			transpiler: "swc",
-			swcConfig: {
-				minify: isProd,
-				sourceMaps: !isProd,
-				module: {
-					type: format
-				}
-			}
-		}),
-		commonjs(),
-		json(),
-		nodePolyfills({ include: ["crypto"] }),
-		alias({
-			entries: [{ find: "@", replacement: path.resolve(__dirname, "./src") }]
-		}),
-		external(),
-		resolve({
-			browser: true,
-			extensions,
-			preferBuiltins: false
-		}),
-		dotenv(),
-		injectProcessEnv({
-			NODE_ENV: process.env.NODE_ENV || "development"
-		}),
-		filesize(),
-		visualizer()
-	];
-
-	return p;
-};
+const plugins = [
+	typescript(),
+	esbuild({
+		include: /\.ts?$/,
+		exclude: /node_modules/,
+		sourceMap: !isProd,
+		minify: isProd,
+		tsconfig: "./tsconfig.json",
+		loaders: {
+			// Add .json files support
+			".json": "json"
+		}
+	}),
+	commonjs(),
+	json(),
+	nodePolyfills({ include: ["crypto"] }),
+	alias({
+		entries: [{ find: "@", replacement: path.resolve(__dirname, "./src") }]
+	}),
+	external(),
+	resolve({
+		browser: true,
+		extensions,
+		preferBuiltins: false
+	}),
+	dotenv(),
+	injectProcessEnv({
+		NODE_ENV: process.env.NODE_ENV || "development"
+	}),
+	filesize(),
+	visualizer()
+];
 
 export default [
-	// CommonJS
+	// CommonJS (Node)
 	{
 		output: {
 			file: pkg.main,
@@ -81,10 +79,10 @@ export default [
 			exports: "named",
 			sourcemap: !isProd
 		},
-		plugins: plugins("cjs")
+		plugins
 	},
 
-	// UMD
+	// UMD / IIFE / Browser
 	{
 		output: {
 			file: pkg.browser,
@@ -94,10 +92,10 @@ export default [
 			exports: "named",
 			sourcemap: !isProd
 		},
-		plugins: plugins("umd")
+		plugins
 	},
 
-	// ES
+	// ES (Import/Export)
 	{
 		output: {
 			file: pkg.module,
@@ -105,7 +103,7 @@ export default [
 			exports: "named",
 			sourcemap: !isProd
 		},
-		plugins: plugins("es6")
+		plugins
 	}
 ].map((conf) => ({
 	input,

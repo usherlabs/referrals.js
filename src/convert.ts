@@ -1,4 +1,3 @@
-import { Conversion } from "@/types";
 import { fromString } from "uint8arrays";
 import { DID } from "dids";
 import { getResolver as getKeyResolver } from "key-did-resolver";
@@ -6,6 +5,7 @@ import { Ed25519Provider } from "key-did-provider-ed25519";
 import ky from "ky-universal";
 import { Base64 } from "js-base64";
 
+import { Conversion } from "@/types";
 import { randomString } from "./utils";
 import Token from "./token";
 import Referred from "./referred";
@@ -54,7 +54,7 @@ export const convert = async (conversion: Conversion) => {
 		const authToken = Base64.encode(JSON.stringify(raw));
 
 		const request = ky.create({
-			prefixUrl: `${Configure.getApiUrl()}/api`,
+			prefixUrl: Configure.getApiUrl(),
 			headers: {
 				Authorization: `Bearer ${authToken}`
 			}

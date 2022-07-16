@@ -12,7 +12,7 @@
 	"files": [
 		"/build"
 	],
-	"types": "index.d.ts",
+	"types": "/build/index.d.ts",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/usherlabs/usher.js.git"
@@ -31,7 +31,7 @@
 		"ts": "tsc --noEmit",
 		"test": "echo \"No tests available\"",
 		"docs": "typedoc ./src/index.ts ./src/actions/index.ts ./src/types.ts",
-		"clean": "del ./build ./docs",
+		"clean": "del ./dist ./build ./docs",
 		"local": "symlink ./build ./tools/build && serve -d ./tools -p 3001"
 	},
 	"dependencies": {
@@ -62,7 +62,7 @@
 		"cross-env": "^7.0.3",
 		"del-cli": "^4.0.1",
 		"dotenv": "^16.0.0",
-		"esbuild": "^0.14.48",
+		"esbuild": "^0.14.49",
 		"eslint": "^8.19.0",
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-config-airbnb-typescript": "^17.0.0",
@@ -76,11 +76,12 @@
 		"prettier": "^2.7.1",
 		"resolve-tspaths": "^0.6.0",
 		"rollup": "^2.70.1",
+		"rollup-plugin-esbuild": "^4.9.1",
 		"rollup-plugin-filesize": "^9.1.2",
 		"rollup-plugin-inject-process-env": "^1.3.1",
 		"rollup-plugin-peer-deps-external": "^2.2.4",
 		"rollup-plugin-polyfill-node": "^0.9.0",
-		"rollup-plugin-ts": "^3.0.2",
+		"rollup-plugin-typescript2": "^0.32.1",
 		"rollup-plugin-visualizer": "^5.6.0",
 		"serve": "^14.0.1",
 		"symlink-cli": "^1.0.0",

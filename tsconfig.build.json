@@ -1,5 +1,5 @@
 {
 	"extends": "./tsconfig.json",
 	"include": [],
-	"files": ["./src/index.ts", "index.d.ts"]
+	"files": ["./src/index.ts"]
 }
