@@ -2,15 +2,11 @@ import lscache from "lscache";
 import { Base64 } from "js-base64";
 import cuid from "cuid";
 
-import {
-	TOKEN_NAME,
-	TOKEN_STORE_NAME,
-	TOKEN_EXPIRY_MINUTES
-} from "@/constants";
+import { TOKEN_NAME, TOKEN_EXPIRY_MINUTES } from "@/constants";
 import { ConflictStrategy, CampaignReference } from "@/types";
 import Configure from "./configure";
 
-lscache.setBucket(TOKEN_STORE_NAME);
+lscache.setBucket(`${TOKEN_NAME}.`);
 
 class Token {
 	/**
@@ -23,7 +19,11 @@ class Token {
 			return a.t - b.t;
 		});
 
-		return tokens[0].p;
+		if (tokens.length > 0) {
+			return tokens[0].p;
+		}
+
+		return null;
 	}
 
 	/**
@@ -102,14 +102,18 @@ class Token {
 	 */
 	public static getAll() {
 		if (typeof window !== "undefined") {
-			const keys = Object.keys(window.localStorage).filter((k) =>
-				k.includes(TOKEN_NAME)
+			const keys = Object.keys(window.localStorage).filter(
+				(k) => k.includes(TOKEN_NAME) && !k.includes(`cacheexpiration`)
 			);
 			const tokens: { p: string; k: string; t: number }[] = [];
 			keys.forEach((k) => {
-				const v = lscache.get(k);
-				if (v) {
-					tokens.push({ ...v, k });
+				const sp = k.split(".");
+				if (sp.length === 2) {
+					const uid = sp[1];
+					const v = lscache.get(uid);
+					if (v) {
+						tokens.push({ ...v, k: uid });
+					}
 				}
 			});
 			return tokens;
@@ -131,6 +135,8 @@ class Token {
 	}
 
 	private static add(token: string) {
+		// Remove first means that we're basiclaly refreshing this token
+		this.remove(token);
 		lscache.set(cuid(), { p: token, t: Date.now() }, TOKEN_EXPIRY_MINUTES);
 	}
 }

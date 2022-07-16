@@ -5,20 +5,21 @@
 		<title>Rollup Bundle</title>
 	</head>
 	<body>
-		<h1>Hello Satellite?</h1>
-		<div id="response"></div>
+		<h1>Hello Usher?</h1>
+		<div id="response">
+			<a id="anchor-el" href="https://usher.so?ref=test-app" target="_blank">Go to Usher</a>
+		</div>
 		<script src="/build/index.js"></script>
 		<script>
 			var responseEl = document.querySelector("#response");
-			window.Usher("onLoad", () => {
-				responseEl.innerHTML += "<p>Yes, I'm here...</p>";
-			});
-			window.Usher("onConversion", (conversion) => {
-				console.log(conversion);
-				responseEl.innerHTML += "<p>I've converted a user</p>";
-			});
-			window.Usher("config", { staging: true });
-			window.Usher("convert", {
+			const usher = window.Usher({ staging: true })
+			responseEl.innerHTML += "<p>Yes, I'm here...</p>";
+			usher.anchor("#anchor-el", {
+				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
+				chain: "arweave"
+			})
+
+			usher.convert({
 				// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
 				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 				chain: "arweave",
@@ -29,9 +30,12 @@
 					hello: "world",
 					key: "value"
 				}
-			});
+			}).then((conversion) => {
+				console.log('Conversion Result: ', conversion);
+				responseEl.innerHTML += "<p>I've converted a user</p>";
+			})
 			setTimeout(() => {
-				window.Usher("convert", {
+				usher.convert({
 					// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
 					id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 					chain: "arweave",
@@ -42,7 +46,10 @@
 						hello: "world",
 						key: "value"
 					}
-				});
+				}).then((conversion) => {
+					console.log('Conversion Result: ', conversion);
+					responseEl.innerHTML += "<p>I've converted a user</p>";
+				})
 			}, 5000);
 		</script>
 	</body>

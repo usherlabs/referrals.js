@@ -15,8 +15,10 @@ export const anchor = async (
 			return;
 		}
 		const token = Token.next(ref);
-		const urlInstance = new URL(href);
-		urlInstance.searchParams.set("_ushrt", token);
-		anchorEl.setAttribute("href", urlInstance.toString());
+		if (token) {
+			const urlInstance = new URL(href);
+			urlInstance.searchParams.set("_ushrt", token);
+			anchorEl.setAttribute("href", urlInstance.toString());
+		}
 	});
 };

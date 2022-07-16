@@ -1,12 +1,17 @@
 import ky from "ky-universal";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { Base64 } from "js-base64";
 
 import { Conversion } from "@/types";
 import Token from "./token";
 import Configure from "./configure";
 import { appName } from "./env-config";
 
-export const convert = async (conversion: Conversion) => {
+type ConversionResponse = { conversion: string; partnership: string };
+
+export const convert = async (
+	conversion: Conversion
+): Promise<ConversionResponse | null> => {
 	console.log("[USHER]", conversion);
 
 	const ref = {
@@ -18,7 +23,7 @@ export const convert = async (conversion: Conversion) => {
 
 	if (!token) {
 		console.error(`[USHER] No token received from a valid referral`);
-		return;
+		return null;
 	}
 
 	if (
@@ -29,24 +34,27 @@ export const convert = async (conversion: Conversion) => {
 		console.error(
 			`[USHER] Campaign 'id', 'chain' and 'eventId' must be specified to track a conversion`
 		);
-		return;
+		return null;
 	}
 
 	try {
 		let visitorId = "";
+		let visitorComponents = {};
 		if (typeof window !== "undefined") {
 			const fp = await FingerprintJS.load({
 				monitoring: false
 			});
 			const fpRes = await fp.get();
 			visitorId = fpRes.visitorId;
-			console.log(`[USHER] Visitor Data`, fpRes);
+			visitorComponents = fpRes.components;
+			// console.log(`[USHER] Visitor Data`, fpRes);
 		}
 
 		const request = ky.create({
 			prefixUrl: Configure.getApiUrl(),
 			headers: {
 				visitorId,
+				visitorComponents: Base64.encodeURI(JSON.stringify(visitorComponents)),
 				client: appName
 			}
 		});
@@ -86,6 +94,8 @@ export const convert = async (conversion: Conversion) => {
 
 		// Destroy the key on success
 		Token.remove(token);
+
+		return saveResponse.data;
 	} catch (e) {
 		if (typeof window !== "undefined") {
 			console.error(`[USHER]`, e);
@@ -93,4 +103,6 @@ export const convert = async (conversion: Conversion) => {
 			throw e;
 		}
 	}
+
+	return null;
 };
