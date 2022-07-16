@@ -64,7 +64,9 @@ const plugins = [
 	}),
 	dotenv(),
 	injectProcessEnv({
-		NODE_ENV: process.env.NODE_ENV || "development"
+		NODE_ENV: process.env.NODE_ENV || "development",
+		APP_NAME: pkg.name,
+		APP_VERSION: pkg.version
 	}),
 	filesize(),
 	visualizer()

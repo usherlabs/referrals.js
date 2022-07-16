@@ -1,8 +1,10 @@
 import ky from "ky-universal";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 import { Conversion } from "@/types";
 import Token from "./token";
 import Configure from "./configure";
+import { appName } from "./env-config";
 
 export const convert = async (conversion: Conversion) => {
 	console.log("[USHER]", conversion);
@@ -31,8 +33,19 @@ export const convert = async (conversion: Conversion) => {
 	}
 
 	try {
+		let visitorId = "";
+		if (typeof window !== "undefined") {
+			const fp = await FingerprintJS.load();
+			const fpRes = await fp.get();
+			visitorId = fpRes.visitorId;
+		}
+
 		const request = ky.create({
-			prefixUrl: Configure.getApiUrl()
+			prefixUrl: Configure.getApiUrl(),
+			headers: {
+				visitorId,
+				client: appName
+			}
 		});
 
 		// Start the conversion using the referral token
