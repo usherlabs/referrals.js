@@ -1,4 +1,4 @@
-// import { convert } from "./convert";
+import { convert } from "./convert";
 import { anchor } from "./anchor";
 import Token from "./token";
 import Configure from "./configure";
@@ -13,7 +13,7 @@ export const Usher = (config?: Config) => {
 		config(c: Config) {
 			Configure.use(c);
 		},
-		// convert,
+		convert,
 		parse() {
 			return Token.parse();
 		},
