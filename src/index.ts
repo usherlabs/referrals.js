@@ -4,6 +4,8 @@ import Token from "./token";
 import Configure from "./configure";
 import { Config, CampaignReference } from "./types";
 
+export * from "./types";
+
 export const Usher = (config?: Config) => {
 	if (config) {
 		Configure.use(config);
@@ -14,8 +16,8 @@ export const Usher = (config?: Config) => {
 			Configure.use(c);
 		},
 		convert,
-		parse() {
-			return Token.parse();
+		parse(url?: string, keepQueryParam = false) {
+			return Token.parse(url, keepQueryParam);
 		},
 		token(ref: CampaignReference) {
 			return Token.next(ref);

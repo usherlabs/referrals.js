@@ -4,14 +4,14 @@ import { Config, ConflictStrategy } from "@/types";
 class Configure {
 	private static _apiUrl = apiUrl;
 
-	private static _ConflictStrategy = ConflictStrategy.PASSTHROUGH;
+	private static _conflictStrategy = ConflictStrategy.PASSTHROUGH;
 
 	public static getApiUrl() {
 		return this._apiUrl;
 	}
 
 	public static getConflictStrategy() {
-		return this._ConflictStrategy;
+		return this._conflictStrategy;
 	}
 
 	public static use(config: Config) {
@@ -22,14 +22,14 @@ class Configure {
 				this._apiUrl = apiUrl;
 			}
 		}
-		if (typeof config.ConflictStrategy === "string") {
+		if (typeof config.conflictStrategy === "string") {
 			const strats = Object.values(ConflictStrategy);
-			if (!strats.includes(config.ConflictStrategy)) {
+			if (!strats.includes(config.conflictStrategy)) {
 				throw new Error(
 					`Conflict Strategy must be one of type: ${strats.join(", ")}`
 				);
 			}
-			this._ConflictStrategy = config.ConflictStrategy;
+			this._conflictStrategy = config.conflictStrategy;
 		}
 	}
 }

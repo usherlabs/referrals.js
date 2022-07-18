@@ -5,7 +5,7 @@ export enum ConflictStrategy {
 
 export type Config = {
 	staging?: boolean;
-	ConflictStrategy?: ConflictStrategy;
+	conflictStrategy?: ConflictStrategy;
 };
 
 export type CampaignReference = {
@@ -19,3 +19,5 @@ export type Conversion = CampaignReference & {
 	metadata?: Record<string, string | number | boolean>;
 	commit?: number;
 };
+
+export type ConversionResponse = { conversion: string; partnership: string };

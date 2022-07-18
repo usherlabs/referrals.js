@@ -1,11 +1,9 @@
 import ky from "ky-universal";
 
-import { Conversion } from "@/types";
+import { Conversion, ConversionResponse } from "@/types";
 import Token from "./token";
 import Configure from "./configure";
 import { appName } from "./env-config";
-
-type ConversionResponse = { conversion: string; partnership: string };
 
 export const convert = async (
 	conversion: Conversion

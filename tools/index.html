@@ -34,23 +34,23 @@
 				console.log('Conversion Result: ', conversion);
 				responseEl.innerHTML += "<p>I've converted a user</p>";
 			})
-			setTimeout(() => {
-				usher.convert({
-					// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
-					id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
-					chain: "arweave",
-					eventId: 0,
-					commit: 20,
-					// nativeId: "world",
-					metadata: {
-						hello: "world",
-						key: "value"
-					}
-				}).then((conversion) => {
-					console.log('Conversion Result: ', conversion);
-					responseEl.innerHTML += "<p>I've converted a user</p>";
-				})
-			}, 5000);
+			// setTimeout(() => {
+			// 	usher.convert({
+			// 		// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
+			// 		id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
+			// 		chain: "arweave",
+			// 		eventId: 0,
+			// 		commit: 20,
+			// 		// nativeId: "world",
+			// 		metadata: {
+			// 			hello: "world",
+			// 			key: "value"
+			// 		}
+			// 	}).then((conversion) => {
+			// 		console.log('Conversion Result: ', conversion);
+			// 		responseEl.innerHTML += "<p>I've converted a user</p>";
+			// 	})
+			// }, 5000);
 		</script>
 	</body>
 </html>
