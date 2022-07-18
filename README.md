@@ -16,6 +16,9 @@ UsherJS is the latest version of Usher's Referral and Conversion Tracking Librar
 
 ## 🚀 Getting Started
 
+When installing UsherJS on your Web App or dApp, **it is highly recommended to load UsherJS on every page**.
+This way, no matter where the Campaign redirects your Referred Users, UsherJS is installed to parse the URL immediately.
+
 ### Using with `<script>`
 
 ```html
