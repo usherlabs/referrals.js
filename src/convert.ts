@@ -1,6 +1,4 @@
 import ky from "ky-universal";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
-import { Base64 } from "js-base64";
 
 import { Conversion } from "@/types";
 import Token from "./token";
@@ -38,23 +36,9 @@ export const convert = async (
 	}
 
 	try {
-		let visitorId = "";
-		let visitorComponents = {};
-		if (typeof window !== "undefined") {
-			const fp = await FingerprintJS.load({
-				monitoring: false
-			});
-			const fpRes = await fp.get();
-			visitorId = fpRes.visitorId;
-			visitorComponents = fpRes.components;
-			// console.log(`[USHER] Visitor Data`, fpRes);
-		}
-
 		const request = ky.create({
 			prefixUrl: Configure.getApiUrl(),
 			headers: {
-				visitorId,
-				visitorComponents: Base64.encodeURI(JSON.stringify(visitorComponents)),
 				client: appName
 			}
 		});
