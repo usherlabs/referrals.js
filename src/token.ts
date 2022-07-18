@@ -50,7 +50,7 @@ class Token {
 	/**
 	 * Parse the existing Query Parameters or provided URL
 	 */
-	public static parse(url?: string): string | null {
+	public static parse(url?: string, keepQueryParam = false): string | null {
 		if (!url && typeof window !== "undefined") {
 			url = window.location.href;
 		}
@@ -65,6 +65,17 @@ class Token {
 		// If this a node environment, return the first token fetched before diving into local storage
 		if (typeof window === "undefined") {
 			return newToken;
+		}
+
+		if (!keepQueryParam) {
+			if (window.history.replaceState) {
+				urlInstance.searchParams.delete("_ushrt");
+				window.history.replaceState(
+					{ path: urlInstance.toString() },
+					"",
+					urlInstance.toString()
+				);
+			}
 		}
 
 		// Use the local storage to manage the cache

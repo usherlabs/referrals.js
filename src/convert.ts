@@ -36,6 +36,10 @@ export const convert = async (
 	}
 
 	try {
+		// Destroy the token before processing requests.
+		// This way, on error the token is still consumed
+		Token.remove(token);
+
 		const request = ky.create({
 			prefixUrl: Configure.getApiUrl(),
 			headers: {
@@ -75,9 +79,6 @@ export const convert = async (
 		if (!saveResponse.success) {
 			throw new Error(`Could not save conversion: ${saveResponse.message}`);
 		}
-
-		// Destroy the key on success
-		Token.remove(token);
 
 		return saveResponse.data;
 	} catch (e) {
