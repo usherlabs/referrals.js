@@ -11,9 +11,9 @@ import alias from "@rollup/plugin-alias";
 import dotenv from "@gedhean/rollup-plugin-dotenv";
 import json from "@rollup/plugin-json";
 import nodePolyfills from "rollup-plugin-polyfill-node";
-// import ts from "rollup-plugin-ts";
 import esbuild from "rollup-plugin-esbuild";
 import typescript from "rollup-plugin-typescript2";
+import dtsBundle from "rollup-plugin-dts-bundle";
 
 import pkg from "./package.json";
 
@@ -39,6 +39,14 @@ const discardWarning = (warning) => {
 
 const plugins = [
 	typescript(),
+	dtsBundle({
+		bundle: {
+			name: pkg.name,
+			main: "build/src/index.d.ts",
+			out: "typings.d.ts"
+		}
+		// deleteOnComplete: ["build/src/**/*.d.ts"]
+	}),
 	esbuild({
 		include: /\.ts?$/,
 		exclude: /node_modules/,
