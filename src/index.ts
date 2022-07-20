@@ -32,10 +32,19 @@ export const Usher = (config?: Config) => {
 declare global {
 	interface Window {
 		Usher: typeof Usher;
+		UsherLoaders: (() => void)[];
 	}
 }
 
 if (typeof window !== "undefined") {
 	window.Usher = Usher;
 	window.Usher().parse(); // parse query params
+	if (
+		typeof window.UsherLoaders !== "undefined" &&
+		Array.isArray(window.UsherLoaders)
+	) {
+		window.UsherLoaders.forEach((fn) => {
+			fn();
+		});
+	}
 }
