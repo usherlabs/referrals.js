@@ -24,9 +24,28 @@ This way, no matter where the Campaign redirects your Referred Users, UsherJS is
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@usher.so/js"></script>
 <script>
-	const usher = window.Usher();
-	// ... use usher
+  (function () {
+    function convert(){
+      console.log('Usher loves Arweave!')
+      const usher = window.Usher();
+      usher.convert({
+        id: "QOttOj5CmOJnzBHrqaCLImXJ9RwHVbMDY0QPEmcWptQ",
+        chain: "arweave",
+        eventId: 0,
+        metadata: {
+          amount: 100
+        }
+      });
+    }
+    if(typeof window.Usher === 'undefined'){
+      window.UsherLoaders = window.UsherLoaders || [];
+      window.UsherLoaders.push(convert)
+    }else{
+      convert();
+    }
+  })();
 </script>
+<!-- UsherJS can even be loaded here with the use of window.UsherLoaders -->
 ```
 
 ### Using as an NPM Package
@@ -48,7 +67,7 @@ import { Usher } from '@usher.so/js'
 
 const usher = Usher()
 (async () => {
-	await usher.convert({
+	const conversion = await usher.convert({
 		id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
 		chain: "arweave",
 		eventId: 0,
