@@ -7,50 +7,97 @@
 	<body>
 		<h1>Hello Usher?</h1>
 		<div id="response">
-			<a id="anchor-el" href="https://usher.so?ref=test-app" target="_blank">Go to Usher</a>
+			<p>
+				<button onclick="convertEvent1()">Convert EventId 1</button>
+			</p>
+			<p>
+				<button onclick="convertEvent2()">Convert EventId 2</button>
+			</p>
+			<p>
+				<a id="anchor-el" href="https://usher.so?ref=test-app" target="_blank">Go to Usher</a>
+			</p>
 		</div>
 		<script src="/build/index.js"></script>
 		<script>
 			var responseEl = document.querySelector("#response");
 			const usher = window.Usher({ staging: true })
 			responseEl.innerHTML += "<p>Yes, I'm here...</p>";
+
+			const chain = "arweave"
+			const campaignId = "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM"
+
 			usher.anchor("#anchor-el", {
-				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
-				chain: "arweave"
+				id: campaignId,
+				chain: chain
 			})
 
-			usher.convert({
-				// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
-				id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
-				chain: "arweave",
-				eventId: 0,
-				commit: 10,
-				// nativeId: "world",
-				metadata: {
-					hello: "world",
-					key: "value"
-				}
-			}).then((conversion) => {
+			function convertOnLoad() {
+				renderProgress("Converting EventId: 0 (on load)...")
+				usher
+					.convert({
+						id: campaignId,
+						chain: chain,
+						eventId: 0,
+						commit: 10,
+						metadata: {
+							hello: "world",
+							key: "value"
+						}
+					})
+					.then(renderResult)
+					.catch(console.error)
+			}
+
+			function convertEvent1() {
+				renderProgress("Converting EventId: 1 (manual)...")
+				usher
+					.convert({
+						id: campaignId,
+						chain: chain,
+						eventId: 1,
+						commit: 10,
+						metadata: {
+							hello: "world",
+							key: "value"
+						}
+					})
+					.then(renderResult)
+					.catch(console.error)
+			}
+
+			function convertEvent2() {
+				renderProgress("Converting EventId: 2 (manual)...")
+				usher
+					.convert({
+						id: campaignId,
+						chain: chain,
+						eventId: 2,
+						commit: 10,
+						metadata: {
+							hello: "world",
+							key: "value"
+						}
+					})
+					.then(renderResult)
+					.catch(console.error)
+			}
+
+			function renderProgress(message) {
+				responseEl.innerHTML += `<b>${message}</b>`;
+			}
+
+			function renderResult(conversion) {
 				console.log('Conversion Result: ', conversion);
-				responseEl.innerHTML += "<p>I've converted a user</p>";
-			})
-			// setTimeout(() => {
-			// 	usher.convert({
-			// 		// id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM__6",
-			// 		id: "ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM",
-			// 		chain: "arweave",
-			// 		eventId: 0,
-			// 		commit: 20,
-			// 		// nativeId: "world",
-			// 		metadata: {
-			// 			hello: "world",
-			// 			key: "value"
-			// 		}
-			// 	}).then((conversion) => {
-			// 		console.log('Conversion Result: ', conversion);
-			// 		responseEl.innerHTML += "<p>I've converted a user</p>";
-			// 	})
-			// }, 5000);
+				const message = conversion
+					? `<p>I've converted a user (conversion: ${conversion.conversion})</p>`
+					: "<p>Conversion failed</p>"
+				responseEl.innerHTML += message;
+			}
+
+			setTimeout(() => {
+				convertOnLoad();
+			}, 5000);
+
 		</script>
 	</body>
 </html>

@@ -97,8 +97,8 @@ class Token {
 					id: dec[1]
 				};
 				const tokens = this.search(campaign);
-				Object.keys(tokens).forEach((key) => {
-					lscache.remove(key);
+				tokens.forEach((token) => {
+					lscache.remove(token.k);
 				});
 			}
 		}
