@@ -1,4 +1,4 @@
-import { apiUrl, stagingApiUrl } from "@/env-config";
+import { apiUrl } from "@/env-config";
 import { Config, ConflictStrategy } from "@/types";
 
 class Configure {

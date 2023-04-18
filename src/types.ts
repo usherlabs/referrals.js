@@ -5,7 +5,6 @@ export enum ConflictStrategy {
 
 export type Config = {
 	apiUrl?: string;
-	staging?: boolean;
 	conflictStrategy?: ConflictStrategy;
 };
 
