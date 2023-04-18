@@ -15,12 +15,11 @@ class Configure {
 	}
 
 	public static use(config: Config) {
-		if (typeof config.staging === "boolean") {
-			if (config.staging === true) {
-				this._apiUrl = stagingApiUrl;
-			} else {
-				this._apiUrl = apiUrl;
-			}
+		// What api url will usher use?
+		// 1. If apiUrl is set by the user, use that
+		// 2. Otherwise, use the default apiUrl
+		if (typeof config.apiUrl === "string") {
+			this._apiUrl = config.apiUrl;
 		}
 		if (typeof config.conflictStrategy === "string") {
 			const strats = Object.values(ConflictStrategy);
