@@ -34,10 +34,6 @@ export const convert = async (
 	}
 
 	try {
-		// Destroy the token before processing requests.
-		// This way, on error the token is still consumed
-		Token.remove(token);
-
 		const request = ky.create({
 			prefixUrl: Configure.getApiUrl(),
 			headers: {
