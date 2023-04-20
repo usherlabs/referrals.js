@@ -2,7 +2,7 @@ import { apiUrl } from "@/env-config";
 import { Config, ConflictStrategy } from "@/types";
 
 class Configure {
-	private static _apiUrl = apiUrl;
+	private static _apiUrl = apiUrl; // Default to ENV
 
 	private static _conflictStrategy = ConflictStrategy.PASSTHROUGH;
 
@@ -15,9 +15,8 @@ class Configure {
 	}
 
 	public static use(config: Config) {
-		// What api url will usher use?
-		// 1. If apiUrl is set by the user, use that
-		// 2. Otherwise, use the default apiUrl
+		// 1. If config.apiUrl is set by the user, use that,
+		// 2. Otherwise, use the default apiUrl in ENV
 		if (typeof config.apiUrl === "string") {
 			this._apiUrl = config.apiUrl;
 		}
