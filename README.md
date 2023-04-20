@@ -74,14 +74,17 @@ UsherJS can be instantiated by optionally passing a `config` object.
 const usher = Usher();
 
 // or
-const usher2 = Usher({ staging: true });
+const usher2 = Usher({ apiUrl: "https://app.staging.usher.so/api" });
+
+// or
+const usher3 = Usher({ apiUrl: "<YOUR_USHER_NODE_URL>/api" });
 ```
 
 #### Options
 
 |**Option**|**Type**|**Default**|**Description**
 |----------|--------|-----------|---------------
-|`staging`|boolean|false|A flag to indicate whether to use a [Staging Environment](https://app.staging.usher.so) for Testing/Integration Purposes, or the [Live Environment](https://app.usher.so)
+|`apiUrl`|string|"https://app.usher.so/api"|The URL to the Usher API to use for Conversion Tracking
 |`conflictStrategy`|string (enum)|"passthrough"|An enum to indicate how to handle conflicting tokens for the same campaign. The option can be either be `"passthrough"` or `"overwrite"`. In the "passthrough" scenario, referal tokens are backlogged for the same campaign. Any previously tracked referral token is saved to the browser until it expires or is used. In the "overwrite", any new referral token that is saved overwrites other saved tokens relative to the same campaign.
 
 ### Methods
@@ -116,7 +119,24 @@ usher.convert({
 
 ## 🧑‍💻 Testing Integration
 
-To test your integration of UsherJS, be sure to configure using `Usher({ staging: true })` and then use one of the Test Campaigns over at the [Usher Staging Environment](https://app.staging.usher.so/)!
+To test your integration of UsherJS, be sure to configure using `Usher({ apiUrl })`. You can use our [Usher Staging Environment](https://app.staging.usher.so/), or you can use your own Usher Node.
+
+[Learn more on how to create an Usher Node →](https://github.com/usherlabs/usher)
+
+### Testing with Usher Staging Environment
+
+You may use our Staging Environment to test your integration of UsherJS. To do so, you will need to:
+
+- Set the `apiUrl` option when instantiating UsherJS to `https://app.staging.usher.so/api`
+- Use one of the Test Campaigns over at the [Usher Staging Environment](https://app.staging.usher.so/).
+
+
+### Testing with other Usher Nodes
+
+Another option is to use your own Usher Node. You can do so by setting the `apiUrl` option when instantiating UsherJS. To do so, you will need to:
+
+- Set the `apiUrl` options when instantiating UsherJS to the URL of your Usher Node. (e.g. on local development: `http://localhost:3000/api`)
+
 
 ## 🐒 Development
 
@@ -136,3 +156,5 @@ yarn local
 
 Then, make your changes and test them out using the [test Campaign on the Usher Staging Environment](https://app.staging.usher.so/campaign/arweave/ida4Pebl2uULdI_rN8waEw65mVH9uIFTY1JyeZt1PBM)!
 This specific Test Campaign has a destination URL [http://localhost:3001/](http://localhost:3001/)
+
+You may also use your own Usher node to develop.
