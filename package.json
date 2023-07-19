@@ -1,6 +1,6 @@
 {
 	"name": "@usher.so/js",
-	"version": "0.2.9",
+	"version": "0.2.10",
 	"description": "UsherJS Library used for integrating Conversion Tracking",
 	"author": "Ryan Soury <ryan@usher.so>",
 	"homepage": "https://usher.so/",
