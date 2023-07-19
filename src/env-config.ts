@@ -6,8 +6,3 @@ export const appVersion = process.env.APP_VERSION;
 export const appName = `${appPackageName}@${appVersion}`;
 
 export const apiUrl = process.env.API_URL;
-
-if (!apiUrl) {
-	console.log(`[USHER] ERROR: No API Url loaded!`);
-	throw new Error("Required environment variables not found");
-}
