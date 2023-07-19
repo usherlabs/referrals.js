@@ -53,6 +53,7 @@ const plugins = [
 		sourceMap: !isProd,
 		minify: isProd,
 		tsconfig: "./tsconfig.json",
+		target: "es2018",
 		loaders: {
 			// Add .json files support
 			".json": "json"
