@@ -64,9 +64,9 @@ const plugins = [
 		tsconfig: "./tsconfig.json",
 		target: "es6",
 		define: {
-			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-			'process.env.APP_NAME': JSON.stringify(pkg.name),
-			'process.env.APP_VERSION': JSON.stringify(pkg.version)
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+			"process.env.APP_NAME": JSON.stringify(pkg.name),
+			"process.env.APP_VERSION": JSON.stringify(pkg.version)
 		},
 		loaders: {
 			// Add .json files support
