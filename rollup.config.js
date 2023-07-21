@@ -6,7 +6,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import external from "rollup-plugin-peer-deps-external";
 import filesize from "rollup-plugin-filesize";
 import visualizer from "rollup-plugin-visualizer";
-import injectProcessEnv from "rollup-plugin-inject-process-env";
 import alias from "@rollup/plugin-alias";
 import dotenv from "@gedhean/rollup-plugin-dotenv";
 import json from "@rollup/plugin-json";
